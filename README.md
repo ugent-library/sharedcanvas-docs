@@ -3,19 +3,18 @@ sharedcanvas.be
 
 ## What does it do?
 
-sharedcanvas.be is an administration website that allows
-
-you to create [IIIF v2](https://iiif.io/api/presentation/2.1/) manifests, that can be viewed by any
-
-viewer that supports [IIIF v2](https://iiif.io/api/presentation/2.1/).
+sharedcanvas.be is an **administration website** that allows you to create [IIIF v2](https://iiif.io/api/presentation/2.1/) manifests, that can be viewed by any viewer that supports [IIIF v2](https://iiif.io/api/presentation/2.1/).
 
 e.g. Go to http://universalviewer.io/#view, and enter this manifest URL
 
     https://sharedcanvas.be/IIIF/manifests/B_OB_MS354
 
-sharedcanvas.be is also the domain where these manifests are hosted,
+sharedcanvas.be is also the **domain where these manifests** are hosted, as you can see in the URL above.
 
-as you can see in the URL above.
+For each manifest you have to create a record in the administration part of the website, after which a manifest will be generated in the background.
+
+Each record has one or more links where you can see a demo of the manifest in the universalviewer, mirador or tify viewer. These urls are however demo urls and you should not rely on them. **We do not host any reliable IIIF viewers**.
+
 
 ## What do I need (to do) to create one manifest (at minimum)?
 
@@ -117,7 +116,7 @@ Yes if you provide the necessary OCR files. We do not generate OCR ourselves.
 
 For each image, sharedcanvas looks for an `html` or `xml` file with the same name but with different extension.
 
-e.g. the OCR for 0001.jpg should be stored in 0001.xml
+e.g. the OCR for `0001.jpg` should be stored in `0001.xml`
 
 Such an XML file must be an ALTO XML file, and should only contain data for that page.
 
