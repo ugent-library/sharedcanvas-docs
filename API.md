@@ -83,3 +83,9 @@ Notes:
 with its own url. The main collection contains the total number of manifests, and refers to the first page, but does NOT include any links to manifests.
 
 > e.g. compare [main collection](https://sharedcanvas.be/IIIF/GUM/discover) to the [first page](https://sharedcanvas.be/IIIF/GUM/discover?limit=50&q=&start=0)
+
+Query parameters:
+
+* **q**: search query. No special syntax. Search behaviour is determined by the api internally.
+* **start**: return list of manifests starting from index `start`. Must be natural number, starting at `0`
+* **limit**: limit of list of manifests returned. Must be natural number
