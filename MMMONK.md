@@ -146,3 +146,129 @@ Metadata can be retrieved as follows:
 [https://sharedcanvas.be/IIIF/mmmonk/discover](https://sharedcanvas.be/IIIF/mmmonk/discover) returns a [IIIF v2 collection](https://iiif.io/api/presentation/2.1/#collection), containing links to manifests
 
 Same rules apply to this collection as for the one from adore.ugent.be
+
+Were are the images?
+--------------------
+
+All images are served by adore.ugent.be and sharedcanvas.be.
+
+Every [Canvas](https://iiif.io/api/presentation/3.0/#53-canvas) in the manifest has a link to its image api service url in `images.0.resource.service.@id` which is compliant with the [IIIF v2.0 Image API](https://iiif.io/api/image/2.0/):
+
+Example:
+
+```
+{
+   "height" : 6032,
+   "images" : [
+      {
+         "motivation" : "sc:painting",
+         "resource" : {
+            "service" : {
+               "@context" : "http://iiif.io/api/image/2/context.json",
+               "profile" : "http://iiif.io/api/image/2/level1.json",
+               "@id" : "https://adore.ugent.be/IIIF/images/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0%3ADS.3"
+            },
+            "height" : 6032,
+            "format" : "image/jpeg",
+            "@id" : "https://adore.ugent.be/IIIF/images/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0%3ADS.3/full/full/0/native.jpg",
+            "@type" : "dctypes:Image",
+            "width" : 9246
+         },
+         "@id" : "https://adore.ugent.be/IIIF/manifests/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0/canvases/DS.3/image-annotations/0",
+         "on" : "https://adore.ugent.be/IIIF/manifests/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0/canvases/DS.3",
+         "@type" : "oa:Annotation"
+      }
+   ],
+   "@id" : "https://adore.ugent.be/IIIF/manifests/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0/canvases/DS.3",
+   "@type" : "sc:Canvas",
+   "width" : 9246
+}
+```
+
+In this example the service url is https://adore.ugent.be/IIIF/images/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0%3ADS.3.
+
+This is the [base url](https://adore.ugent.be/IIIF/images/archive.ugent.be%3A8197A220-F705-11DF-8137-96239BE017E0%3ADS.3) of the image api of that specific resource.
+
+In order to retrieve the [info.json](https://iiif.io/api/image/2.0/#information-request), append `/info.json` to the url, and visit it:
+
+```
+{
+   "@id" : "https://adore.ugent.be/IIIF/images/archive.ugent.be:8197A220-F705-11DF-8137-96239BE017E0:DS.3",
+   "@context" : "http://iiif.io/api/image/2/context.json",
+   "protocol" : "http://iiif.io/api/image",
+   "width" : 9246,
+   "tiles" : [
+      {
+         "height" : 256,
+         "width" : 256,
+         "scaleFactors" : [
+            1,
+            2,
+            4,
+            8,
+            16,
+            32,
+            64
+         ]
+      }
+   ],
+   "height" : 6032,
+   "profile" : [
+      "http://iiif.io/api/image/2/level1.json",
+      {
+         "supports" : [
+            "regionByPct",
+            "regionSquare",
+            "sizeByForcedWh",
+            "sizeByWh",
+            "sizeAboveFull",
+            "rotationBy90s",
+            "mirroring"
+         ],
+         "maxWidth" : 4000,
+         "maxHeight" : 4000,
+         "formats" : [
+            "jpg"
+         ],
+         "qualities" : [
+            "native",
+            "color",
+            "gray",
+            "bitonal"
+         ]
+      }
+   ],
+
+   "sizes" : [
+      {
+         "height" : 94,
+         "width" : 144
+      },
+      {
+         "width" : 288,
+         "height" : 188
+      },
+      {
+         "width" : 577,
+         "height" : 377
+      },
+      {
+         "height" : 754,
+         "width" : 1155
+      },
+      {
+         "width" : 2311,
+         "height" : 1508
+      }
+   ]
+}
+```
+
+With this information a viewer that is compliant with the IIIF v2 Image API knows
+how it can retrieve slices of the image, in what size and in what format.
+
+Note that our image api always redirects to the info.json url if the base url of an image is requested.
+
+If the viewer supports the specified Image API version, no further development should be done.
+The `info.json` is retrieved, and the viewer uses that to build a "zoomer application"
+by requesting "tiles" at different resolution levels.
